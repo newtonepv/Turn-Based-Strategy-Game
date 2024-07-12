@@ -8,7 +8,7 @@ public class UnitActionControllerScript : MonoBehaviour
 {
     [SerializeField] LayerMask groundPlane;
     [SerializeField] LayerMask unitLayer;
-    [SerializeField] static playerMovementScript selectedUnit;
+    [SerializeField] playerMovementScript selectedUnit;
     static UnitActionControllerScript instance;
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class UnitActionControllerScript : MonoBehaviour
             HandleClickActions();
         }
     }
-    static void HandleClickActions()
+    void HandleClickActions()
     {
         if (HandleUnitSelect())
         {
@@ -51,7 +51,7 @@ public class UnitActionControllerScript : MonoBehaviour
 
     }
 
-    private static bool HandleUnitSelect()
+    private bool HandleUnitSelect()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -74,12 +74,12 @@ public class UnitActionControllerScript : MonoBehaviour
 
     }
 
-    private static void HandleMooveUnit()
+    private void HandleMooveUnit()
     {
         MooveUnit(GetMousePosition());
     }
 
-    private static Vector3 GetMousePosition()
+    private Vector3 GetMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -97,9 +97,9 @@ public class UnitActionControllerScript : MonoBehaviour
             selectedUnit = Unit;
     }
 
-    public static void MooveUnit(Vector3 destination)
+    public void MooveUnit(Vector3 destination)
     {
-            selectedUnit.SetDestination(destination);
-            selectedUnit.SetRotationTowards(destination);
+        selectedUnit.SetDestination(destination);
+        selectedUnit.SetRotationTowards(destination);
     }
 }
