@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimatorScript : MonoBehaviour
 {
+
     [SerializeField]Animator animator;
     void Start()
     {

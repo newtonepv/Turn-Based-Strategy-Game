@@ -9,17 +9,20 @@ public class UnitActionControllerScript : MonoBehaviour
     [SerializeField] LayerMask groundPlane;
     [SerializeField] LayerMask unitLayer;
     [SerializeField] playerMovementScript selectedUnit;
-    static UnitActionControllerScript instance;
+    public static UnitActionControllerScript Instance { get; private set; }
+
+    public event EventHandler OnUnitSelectedChange;
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
+            return;
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
     private void Start()
@@ -55,11 +58,11 @@ public class UnitActionControllerScript : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, instance.unitLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Instance.unitLayer))
         {
             if(hit.collider.TryGetComponent<playerMovementScript>(out playerMovementScript unit))
             {
-                selectedUnit = unit;
+                SelectUnit(unit);
                 return true;
             }
             else
@@ -83,21 +86,26 @@ public class UnitActionControllerScript : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, instance.groundPlane))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Instance.groundPlane))
         {
             return hit.point;
         }
         else
         {
-            return instance.transform.position;
+            return Instance.transform.position;
         }
     }
     private void SelectUnit(playerMovementScript Unit)
     {
-            selectedUnit = Unit;
+        selectedUnit = Unit;
+        OnUnitSelectedChange?.Invoke(this, EventArgs.Empty);
+        
     }
-
-    public void MooveUnit(Vector3 destination)
+    public playerMovementScript GetSelectedUnit()
+    {
+        return selectedUnit;
+    }
+    private void MooveUnit(Vector3 destination)
     {
         selectedUnit.SetDestination(destination);
         selectedUnit.SetRotationTowards(destination);

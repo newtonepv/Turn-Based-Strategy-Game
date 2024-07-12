@@ -29,7 +29,6 @@ public class playerMovementScript : MonoBehaviour
         MoveOrNot();
         RotateOrNot();
     }
-
     private void RotateOrNot()
     {
         if ((wantedForward- transform.forward).magnitude > 0.1)
