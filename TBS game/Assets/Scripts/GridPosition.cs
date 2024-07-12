@@ -5,6 +5,7 @@ public struct GridPos
     {
         this.x = x; this.z = z;
     }
+    override
     public string ToString()
     {
         return "x: " + x + "; z:" + z;

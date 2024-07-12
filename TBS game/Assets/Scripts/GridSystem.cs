@@ -34,4 +34,17 @@ public class GridSystem {
                (int)Math.Floor(vector.z/cellSize)
                            );
     }
+    public void CreateDebugObjects(Transform prefab)
+    {
+        for(int x =0; x < width; x++)
+        {
+            for(int z=0; z<height; z++)
+            {
+                Transform transform = GameObject.Instantiate(prefab,
+                                                             GridToWorldPos(x, z),
+                                                             Quaternion.identity);
+
+            }
+        }
+    }
 }
