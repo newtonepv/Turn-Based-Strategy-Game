@@ -12,6 +12,9 @@ public class GridSystem {
         this.height = height;
         this.width = width;
         this.cellSize = cellSize;
+
+        gridObject = new GridObjectScript[height, width];
+
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
