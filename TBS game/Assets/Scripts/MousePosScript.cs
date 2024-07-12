@@ -25,7 +25,7 @@ public class MousePosScript : MonoBehaviour
     { 
        transform.position = MousePosScript.GetMousePosition();
     }
-    private static Vector3 GetMousePosition()
+    public static Vector3 GetMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
