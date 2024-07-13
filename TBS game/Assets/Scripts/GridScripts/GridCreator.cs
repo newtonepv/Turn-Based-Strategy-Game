@@ -31,7 +31,7 @@ public class GridCreator : MonoBehaviour
     {
     }
 
-    public void SetUnitAtGridPosition(playerMovementScript unit, GridPos gridPos)
+    public void AddUnitAtGridPosition(playerMovementScript unit, GridPos gridPos)
     {
         //GridPos gridPos = gridSystem.WorldToGrid(position);
 
@@ -40,15 +40,15 @@ public class GridCreator : MonoBehaviour
         gridObject.AddUnit(unit);
 
     }
-    /*public playerMovementScript GetUnitAtGridPosition(GridPos gridPos)
+    public List<playerMovementScript> GetUnitAtGridPosition(GridPos gridPos)
     {
         //GridPos gridPos = gridSystem.WorldToGrid(position);
 
         GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);
 
-        return gridObject.GetUnit();
-    }*/
-    public void ClearUnitAtGridPosition(playerMovementScript unit,GridPos gridPos)
+        return gridObject.GetUnitList();
+    }
+    public void RemoveUnitAtGridPosition(playerMovementScript unit,GridPos gridPos)
     {
 
         GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);

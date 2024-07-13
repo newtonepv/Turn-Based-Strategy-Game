@@ -23,15 +23,15 @@ public class playerMovementScript : MonoBehaviour
     void Start()
     {
         GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
-        GridCreator.Instance.SetUnitAtGridPosition(this, gridPos);
+        GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
     }
     void SetPosInGrid(GridPos gridPos)
     {
-        GridCreator.Instance.SetUnitAtGridPosition(this, gridPos);
+        GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
     }
     void ClearPosOnGrid(GridPos gridPos)
     {
-        GridCreator.Instance.ClearUnitAtGridPosition(this, gridPos);
+        GridCreator.Instance.RemoveUnitAtGridPosition(this, gridPos);
     }
     void Update()
     {

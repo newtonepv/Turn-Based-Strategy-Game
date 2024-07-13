@@ -9,9 +9,9 @@ public class GridObject
     GridSystem father;
     GridPos position;
     List<playerMovementScript> units;
-    public playerMovementScript GetUnit()
+    public List<playerMovementScript> GetUnitList()
     {
-        return units[1];
+        return units;
     }
     public void AddUnit(playerMovementScript unit)
     {
