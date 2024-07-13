@@ -22,6 +22,7 @@ public class playerMovementScript : MonoBehaviour
     }
     void Start()
     {
+        GridCreator.Instance.SetUnitAtGridPosition(this, transform.position);
     }
 
     void Update()

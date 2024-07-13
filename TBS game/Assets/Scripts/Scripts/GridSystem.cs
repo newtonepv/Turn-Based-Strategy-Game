@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridSystem {
+public class GridSystem  {
     int height, width;
     float cellSize;
-    GridObjectScript[,] gridObject;
+    GridObject[,] gridObject;
 
     public GridSystem(int height, int width, float cellSize) {
         this.height = height;
         this.width = width;
         this.cellSize = cellSize;
 
-        gridObject = new GridObjectScript[height, width];
+        gridObject = new GridObject[height, width];
 
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
-                gridObject[x,z] = new GridObjectScript(this, new GridPos(x,z));
+                gridObject[x,z] = new GridObject(this, new GridPos(x,z));
             }
         }
     }
@@ -44,7 +44,15 @@ public class GridSystem {
                                                              GridToWorldPos(x, z),
                                                              Quaternion.identity);
 
+                GridDebugObject gridDebugObject = transform.gameObject.GetComponent<GridDebugObject>();
+
+                gridDebugObject.SetGridObject(GetGridObjectFromGrid(x,z));
+
             }
         }
+    }
+    public GridObject GetGridObjectFromGrid(int x, int z)
+    {
+        return gridObject[x, z];
     }
 }
