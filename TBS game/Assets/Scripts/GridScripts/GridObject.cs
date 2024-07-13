@@ -4,32 +4,38 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
 
-public class GridObject : MonoBehaviour
+public class GridObject 
 {
     GridSystem father;
     GridPos position;
-    playerMovementScript unit;
+    List<playerMovementScript> units;
     public playerMovementScript GetUnit()
     {
-        return unit;
+        return units[1];
     }
-    public void SetUnit(playerMovementScript unit)
+    public void AddUnit(playerMovementScript unit)
     {
-        this.unit = unit;
+        units.Add(unit);
+    }
+    public void RemoveUnit(playerMovementScript unit)
+    {
+        units.Remove(unit);
     }
     public GridObject(GridSystem father,GridPos position)
     {
         this.father = father;
         this.position = position;
+        units = new List<playerMovementScript>();
     }
-    public GridPos GetPosition()
-    {
 
+    private GridPos GetPosition()
+    {
     return position;
     }
+
     public override string ToString()
     {
         position = GetPosition();
-        return "x:" + position.x+" z:"+position.z+"\n unit?:" + unit;
+        return "x:" + position.x+" z:"+position.z+"\n unit?:" + units.Count;
     }
 }

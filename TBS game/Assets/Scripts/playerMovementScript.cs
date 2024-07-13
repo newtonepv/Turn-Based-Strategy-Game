@@ -22,9 +22,17 @@ public class playerMovementScript : MonoBehaviour
     }
     void Start()
     {
-        GridCreator.Instance.SetUnitAtGridPosition(this, transform.position);
+        GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
+        GridCreator.Instance.SetUnitAtGridPosition(this, gridPos);
     }
-
+    void SetPosInGrid(GridPos gridPos)
+    {
+        GridCreator.Instance.SetUnitAtGridPosition(this, gridPos);
+    }
+    void ClearPosOnGrid(GridPos gridPos)
+    {
+        GridCreator.Instance.ClearUnitAtGridPosition(this, gridPos);
+    }
     void Update()
     {
         MoveOrNot();
@@ -48,11 +56,21 @@ public class playerMovementScript : MonoBehaviour
     {
         wantedForward = (mousepos - transform.position).normalized;
     }
+    void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
+    {
+        ClearPosOnGrid(gridPos);
+        SetPosInGrid(destinationGridPos);
 
+
+    }
     void MoveOrNot()
     {
+        GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
+        ClearPosOnGrid(gridPos);
+
 
         Vector3 distance = (destination - transform.position);
+
 
         if (distance.magnitude > maxDistanceFromDestination)
         {
@@ -66,7 +84,9 @@ public class playerMovementScript : MonoBehaviour
             transform.position = destination;
         }
 
+        gridPos = GridCreator.Instance.WorldToGrid(transform.position);
 
+        SetPosInGrid(gridPos);
     }
     void SetMooving(bool isMoving)
     {

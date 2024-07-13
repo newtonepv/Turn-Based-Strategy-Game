@@ -20,32 +20,40 @@ public class GridCreator : MonoBehaviour
         {
             Instance = this;
         }
+        gridSystem = new GridSystem(10, 10, 2f);
+        gridSystem.CreateDebugObjects(prefabTransform);
     }
     void Start()
     {
-        gridSystem = new GridSystem(10,10,2f);
-        gridSystem.CreateDebugObjects(prefabTransform);
     }
 
     void Update()
     {
-        Debug.Log(gridSystem.WorldToGrid(MousePosScript.GetMousePosition()).ToString());
     }
 
-    public void SetUnitAtGridPosition(playerMovementScript unit,  Vector3 position)
+    public void SetUnitAtGridPosition(playerMovementScript unit, GridPos gridPos)
     {
-        GridPos gridPos = gridSystem.WorldToGrid(position);
+        //GridPos gridPos = gridSystem.WorldToGrid(position);
 
         GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);
 
-        gridObject.SetUnit(unit);
+        gridObject.AddUnit(unit);
+
     }
-    public playerMovementScript GetUnitAtGridPosition(Vector3 position)
+    /*public playerMovementScript GetUnitAtGridPosition(GridPos gridPos)
     {
-        GridPos gridPos = gridSystem.WorldToGrid(position);
+        //GridPos gridPos = gridSystem.WorldToGrid(position);
 
         GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);
 
         return gridObject.GetUnit();
+    }*/
+    public void ClearUnitAtGridPosition(playerMovementScript unit,GridPos gridPos)
+    {
+
+        GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);
+
+        gridObject.RemoveUnit(unit);
     }
+    public GridPos WorldToGrid(Vector3 position) => gridSystem.WorldToGrid(position);
 }

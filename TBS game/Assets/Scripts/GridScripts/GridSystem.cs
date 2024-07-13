@@ -7,12 +7,14 @@ public class GridSystem  {
     int height, width;
     float cellSize;
     GridObject[,] gridObject;
+    GridDebugObject[,] gridDebugObjects;
 
     public GridSystem(int height, int width, float cellSize) {
         this.height = height;
         this.width = width;
         this.cellSize = cellSize;
 
+        gridDebugObjects = new GridDebugObject[height, width];
         gridObject = new GridObject[height, width];
 
         for (int x = 0; x < width; x++)
@@ -44,15 +46,25 @@ public class GridSystem  {
                                                              GridToWorldPos(x, z),
                                                              Quaternion.identity);
 
+                //GridDebugObject == the object with tmpro
                 GridDebugObject gridDebugObject = transform.gameObject.GetComponent<GridDebugObject>();
 
+                //makes the text be: gridobject.ToString()
                 gridDebugObject.SetGridObject(GetGridObjectFromGrid(x,z));
+
+                gridDebugObjects[x,z] = gridDebugObject;
 
             }
         }
     }
+
     public GridObject GetGridObjectFromGrid(int x, int z)
     {
         return gridObject[x, z];
+    }
+
+    public GridDebugObject GetGridDebugObjectFromGrid(int x, int z)
+    {
+        return gridDebugObjects[x, z];
     }
 }
