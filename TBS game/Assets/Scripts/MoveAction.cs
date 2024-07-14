@@ -61,6 +61,10 @@ public class MoveAction : MonoBehaviour
         {
             transform.forward = Vector3.Lerp(transform.forward, wantedForward, rotateSpeed * Time.deltaTime);
         }
+        else
+        {
+            transform.forward = wantedForward;
+        }
     }
     public void SetDestination(Vector3 destination)
     {

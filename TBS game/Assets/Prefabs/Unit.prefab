@@ -914,8 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d44706454095b6409ac2232f0128d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 0
-  mooveSpeed: 5.24
+  rotateSpeed: 12
+  mooveSpeed: 2.59
   maxDistanceFromDestination: 0.15
 --- !u!114 &2068110857397453409
 MonoBehaviour:

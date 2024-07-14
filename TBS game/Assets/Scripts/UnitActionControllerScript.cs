@@ -108,7 +108,10 @@ public class UnitActionControllerScript : MonoBehaviour
     }
     private void MooveUnit(Vector3 destination)
     {
-        selectedUnit.SetDestination(destination);
-        selectedUnit.SetRotationTowards(destination);
+        if (selectedUnit.transform.TryGetComponent<MoveAction>(out MoveAction mooveAction))
+        {
+            selectedUnit.SetDestination(destination);
+            selectedUnit.SetRotationTowards(destination);
+        }
     }
 }
