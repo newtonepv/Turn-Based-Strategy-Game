@@ -5,13 +5,18 @@ using UnityEngine;
 public class SpinAction : BaseAction
 {
     [SerializeField] float spinSpeed;
+
+    public delegate void OnSpinActionCompleteDelegate(bool isBusy);
+
     float totalSpinAmmount;
 
-    public void SetSpinning(bool isSpinning)
+    OnSpinActionCompleteDelegate onSpinActionCompleteDelegate;
+    public void SetSpinning(bool isSpinning, OnSpinActionCompleteDelegate onSpinActionCompleteDelegate)
     {
         totalSpinAmmount = 0;
 
         this.isActive = isSpinning;
+        this.onSpinActionCompleteDelegate = onSpinActionCompleteDelegate;
     }
 
     void Update()
@@ -26,9 +31,13 @@ public class SpinAction : BaseAction
 
         totalSpinAmmount += spinAmmount;
 
+        Debug.Log(totalSpinAmmount);
+
         if (totalSpinAmmount >= 360)
         {
+            Debug.Log("pepe");
             isActive=false;
+            onSpinActionCompleteDelegate(false);
         }
 
     }

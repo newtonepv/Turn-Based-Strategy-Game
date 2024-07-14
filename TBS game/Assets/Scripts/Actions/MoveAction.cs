@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,10 @@ public class MoveAction : BaseAction
 
     PlayerAnimatorScript playerAnimator;
 
-     protected override void Awake()
+
+    Action<bool> onMoveActionCompleteDelegate;
+
+    protected override void Awake()
     {
         base.Awake();
         playerAnimator = GetComponent<PlayerAnimatorScript>();
@@ -56,6 +60,7 @@ public class MoveAction : BaseAction
             SetMooving(false);
             transform.position = destination;
             isActive = false;
+            onMoveActionCompleteDelegate(false);
         }
     }
     private void HandleRotation()
@@ -71,8 +76,9 @@ public class MoveAction : BaseAction
         }
 
     }
-    public void Move(Vector3 destination)
+    public void Move(Vector3 destination, Action<bool> onMoveActionCompleteDelegate)
     {
+        this.onMoveActionCompleteDelegate= onMoveActionCompleteDelegate;
         isActive = true;
         SetDestination(destination);
         SetRotationTowards(destination);

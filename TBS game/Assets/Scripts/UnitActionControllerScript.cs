@@ -10,11 +10,12 @@ public class UnitActionControllerScript : MonoBehaviour
     [SerializeField] LayerMask unitLayer;
     [SerializeField] Unit selectedUnit;
     public static UnitActionControllerScript Instance { get; private set; }
-    
 
+    bool isBusy;
     public event EventHandler OnUnitSelectedChange;
     private void Awake()
     {
+        isBusy = false;
         if (Instance != null)
         {
             this.gameObject.SetActive(false);
@@ -26,12 +27,21 @@ public class UnitActionControllerScript : MonoBehaviour
             Instance = this;
         }
     }
+    void SetIsBusy(bool isBusy)
+    {
+        this.isBusy = isBusy;
+    }
     private void Start()
     {
 
     }
     private void Update()
     {
+        if (isBusy)
+        {
+            return;
+        }
+        
         HandleActions();
     }
     void HandleActions()
@@ -61,8 +71,7 @@ public class UnitActionControllerScript : MonoBehaviour
 
     private void HandleSpinUnit()
     {
-        
-        if (Input.GetMouseButtonDown(1) && !AnyActiveAction())
+        if (Input.GetMouseButtonDown(1))
         {
             SpinUnit();
         }
@@ -70,13 +79,14 @@ public class UnitActionControllerScript : MonoBehaviour
 
     private void SpinUnit()
     {
-        selectedUnit.Spin();
+        isBusy=true;
+        selectedUnit.GetSpinAction().SetSpinning(true,SetIsBusy);
     }
 
-    private bool AnyActiveAction()
+    /*private bool AnyActiveAction()
     {
         return selectedUnit.IsSpinActionActive() || selectedUnit.IsMoveActionActive();
-    }
+    }*/
     private bool HandleUnitSelect()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -102,10 +112,7 @@ public class UnitActionControllerScript : MonoBehaviour
 
     private void HandleMooveUnit()
     {
-        if (!AnyActiveAction())
-        {
             MooveUnit(GetMousePosition());
-        }
     }
 
     private Vector3 GetMousePosition()
@@ -136,7 +143,11 @@ public class UnitActionControllerScript : MonoBehaviour
     {
         if (selectedUnit.TryGetComponent<MoveAction>(out MoveAction mooveAction))
         {
-                selectedUnit.Move(destination);
+
+            isBusy = true;
+            GridPos gridDestination = GridCreator.Instance.WorldToGrid(destination);
+            Vector3 limitedDestination = GridCreator.Instance.GridToWorld(gridDestination);
+            selectedUnit.GetMoveAction().Move(limitedDestination, SetIsBusy);
         }
     }
 }

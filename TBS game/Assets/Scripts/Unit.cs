@@ -8,6 +8,10 @@ public class Unit : MonoBehaviour
 {
     MoveAction moveAction;
     SpinAction spinAction;
+
+    public delegate void OnMoveActionCompleteDelegate(bool isBusy);
+    public delegate void OnSpinActionCompleteDelegate(bool isBusy);
+
     private void Awake()
     {
     }
@@ -20,6 +24,10 @@ public class Unit : MonoBehaviour
     public MoveAction GetMoveAction()
     {
         return moveAction;
+    }
+    public SpinAction GetSpinAction()
+    {
+        return spinAction;
     }
     public bool IsMoveActionActive()
     {
@@ -56,22 +64,8 @@ public class Unit : MonoBehaviour
     void Update()
     {
     }
-    public void Move(Vector3 destination)
-    {
-        GridPos gridDestination = GridCreator.Instance.WorldToGrid(destination);
-        Vector3 limitedDestination = GridCreator.Instance.GridToWorld(gridDestination);
-        moveAction.Move(limitedDestination);
-    }
-    public void Spin()
-    {
-        spinAction.SetSpinning(true);
-    }
+    
 
-    /*void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
-    {
-        ClearPosOnGrid(gridPos);
-        SetPosInGrid(destinationGridPos);
-    }*/
 
 
 }
