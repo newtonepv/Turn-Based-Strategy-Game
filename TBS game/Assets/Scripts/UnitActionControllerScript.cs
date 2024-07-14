@@ -100,10 +100,6 @@ public class UnitActionControllerScript : MonoBehaviour
     {
         selectedUnit = unit;
 
-        Debug.Log(selectedUnit.UnitName);
-
-        Debug.Log(unit.UnitName);
-
         OnUnitSelectedChange?.Invoke(this, EventArgs.Empty);
         
     }

@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] public string UnitName;
     MoveAction moveAction;
     private void Awake()
     {
