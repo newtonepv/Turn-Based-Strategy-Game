@@ -32,7 +32,7 @@ public class GridCreator : MonoBehaviour
     {
     }
 
-    public void AddUnitAtGridPosition(playerMovementScript unit, GridPos gridPos)
+    public void AddUnitAtGridPosition(Unit unit, GridPos gridPos)
     {
         //GridPos gridPos = gridSystem.WorldToGrid(position);
 
@@ -41,7 +41,7 @@ public class GridCreator : MonoBehaviour
         gridObject.AddUnit(unit);
 
     }
-    public List<playerMovementScript> GetUnitAtGridPosition(GridPos gridPos)
+    public List<Unit> GetUnitAtGridPosition(GridPos gridPos)
     {
         //GridPos gridPos = gridSystem.WorldToGrid(position);
 
@@ -49,7 +49,7 @@ public class GridCreator : MonoBehaviour
 
         return gridObject.GetUnitList();
     }
-    public void RemoveUnitAtGridPosition(playerMovementScript unit,GridPos gridPos)
+    public void RemoveUnitAtGridPosition(Unit unit,GridPos gridPos)
     {
 
         GridObject gridObject = gridSystem.GetGridObjectFromGrid(gridPos.x, gridPos.z);
@@ -59,4 +59,7 @@ public class GridCreator : MonoBehaviour
     public GridPos WorldToGrid(Vector3 position) => gridSystem.WorldToGrid(position);
 
     public Vector3 GridToWorld(GridPos gridPos) => gridSystem.MiddleOfGridToWorldPos(gridPos.x, gridPos.z);
+
+    public bool GridPositionExist(GridPos gridPos) => gridSystem.GridPositionExist(gridPos.x, gridPos.z);
+    public bool HasUnitOnGridPos(GridPos gridPos) => gridSystem.HasUnitOnGridPos(gridPos.x, gridPos.z);
 }

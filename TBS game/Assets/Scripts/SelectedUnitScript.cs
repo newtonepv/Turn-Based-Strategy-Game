@@ -6,7 +6,7 @@ using UnityEngine;
 
  public class SelectedUnitScript : MonoBehaviour
 {
-    [SerializeField] playerMovementScript unit;
+    [SerializeField] Unit unit;
     MeshRenderer meshRedner;
     private void Awake()
     {

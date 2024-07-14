@@ -8,16 +8,16 @@ public class GridObject
 {
     GridSystem father;
     GridPos position;
-    List<playerMovementScript> units;
-    public List<playerMovementScript> GetUnitList()
+    List<Unit> units;
+    public List<Unit> GetUnitList()
     {
         return units;
     }
-    public void AddUnit(playerMovementScript unit)
+    public void AddUnit(Unit unit)
     {
         units.Add(unit);
     }
-    public void RemoveUnit(playerMovementScript unit)
+    public void RemoveUnit(Unit unit)
     {
         units.Remove(unit);
     }
@@ -25,7 +25,7 @@ public class GridObject
     {
         this.father = father;
         this.position = position;
-        units = new List<playerMovementScript>();
+        units = new List<Unit>();
     }
 
     private GridPos GetPosition()
@@ -38,4 +38,5 @@ public class GridObject
         position = GetPosition();
         return "x:" + position.x+" z:"+position.z+"\n unit?:" + units.Count;
     }
+
 }

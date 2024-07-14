@@ -917,6 +917,7 @@ MonoBehaviour:
   rotateSpeed: 12
   mooveSpeed: 2.59
   maxDistanceFromDestination: 0.15
+  maxMoveDistance: 1
 --- !u!114 &2068110857397453409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,9 +927,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2258881948381263854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b1867197898fc04db5609134065cc9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14884e6d04583b448b2823778dfa6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitName: 
 --- !u!114 &6973412949560906302
 MonoBehaviour:
   m_ObjectHideFlags: 0

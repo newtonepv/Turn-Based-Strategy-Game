@@ -32,6 +32,14 @@ public struct GridPos : IEquatable<GridPos>
     {
         return a.x == b.x && a.z == b.z;
     }
+    public static GridPos operator +(GridPos a, GridPos b)
+    {
+        return new GridPos(a.x+b.x,a.z+b.z);
+    }
+    public static GridPos operator -(GridPos a, GridPos b)
+    {
+        return new GridPos(a.x - b.x, a.z - b.z);
+    }
     public static bool operator != (GridPos a, GridPos b)
     {
         return a.x != b.x || a.z != b.z;

@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class playerMovementScript : MonoBehaviour
+public class Unit : MonoBehaviour
 {
+    [SerializeField] public string UnitName;
     MoveAction moveAction;
     private void Awake()
     {
@@ -12,13 +14,20 @@ public class playerMovementScript : MonoBehaviour
     void Start()
     {
         GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
-        GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
         moveAction = GetComponent<MoveAction>();
     }
     public MoveAction GetMoveAction()
     {
         return moveAction;
     }
+
+
+    public GridPos GetGridPos()
+    {
+        return GridCreator.Instance.WorldToGrid(transform.position);
+    }
+
+
     void SetPosInGrid(GridPos gridPos)
     {
         GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
@@ -52,11 +61,11 @@ public class playerMovementScript : MonoBehaviour
         moveAction.SetRotationTowards((mousepos - transform.position).normalized);
     }
 
-    void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
+    /*void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
     {
         ClearPosOnGrid(gridPos);
         SetPosInGrid(destinationGridPos);
-    }
+    }*/
 
     
 }

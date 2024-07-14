@@ -8,7 +8,7 @@ public class UnitActionControllerScript : MonoBehaviour
 {
     [SerializeField] LayerMask groundPlane;
     [SerializeField] LayerMask unitLayer;
-    [SerializeField] playerMovementScript selectedUnit;
+    [SerializeField] Unit selectedUnit;
     public static UnitActionControllerScript Instance { get; private set; }
     
 
@@ -61,7 +61,7 @@ public class UnitActionControllerScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Instance.unitLayer))
         {
-            if(hit.collider.TryGetComponent<playerMovementScript>(out playerMovementScript unit))
+            if(hit.collider.TryGetComponent<Unit>(out Unit unit))
             {
                 SelectUnit(unit);
                 return true;
@@ -96,13 +96,18 @@ public class UnitActionControllerScript : MonoBehaviour
             return Instance.transform.position;
         }
     }
-    private void SelectUnit(playerMovementScript Unit)
+    private void SelectUnit(Unit unit)
     {
-        selectedUnit = Unit;
+        selectedUnit = unit;
+
+        Debug.Log(selectedUnit.UnitName);
+
+        Debug.Log(unit.UnitName);
+
         OnUnitSelectedChange?.Invoke(this, EventArgs.Empty);
         
     }
-    public playerMovementScript GetSelectedUnit()
+    public Unit GetSelectedUnit()
     {
         return selectedUnit;
     }

@@ -71,4 +71,27 @@ public class GridSystem  {
     {
         return gridDebugObjects[x, z];
     }
+
+    public bool GridPositionExist(int x, int z)
+    {
+        return  x >= 0 && z >= 0
+                &&
+                x < width && z < height;
+    }
+    public bool HasUnitOnGridPos(int x, int z)
+    {
+        if (GridPositionExist(x, z))
+        {
+            GridObject gridObject = GetGridObjectFromGrid(x, z);
+            if (gridObject.GetUnitList().Count != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else {  return false; }
+    }
 }

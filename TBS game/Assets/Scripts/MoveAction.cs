@@ -7,10 +7,12 @@ public class MoveAction : MonoBehaviour
     bool isMoving;
     Vector3 wantedForward;
     Vector3 destination;
+    Unit unit;
 
     [SerializeField] float rotateSpeed;
     [SerializeField] float mooveSpeed;
     [SerializeField] float maxDistanceFromDestination;
+    [SerializeField] int maxMoveDistance;
 
     PlayerAnimatorScript playerAnimator;
     private void Awake()
@@ -22,7 +24,11 @@ public class MoveAction : MonoBehaviour
 
     void Start()
     {
-        
+        TryGetComponent<Unit>(out unit);
+        if (unit)
+        {
+            unit.SetPosInGrid(transform.position);
+        }
     }
 
     void Update()
@@ -33,7 +39,7 @@ public class MoveAction : MonoBehaviour
 
     void HandleMovement()
     {
-        if(TryGetComponent<playerMovementScript>(out playerMovementScript unit))
+        if(unit)
         {
             unit.ClearPosInGrid(transform.position);
         }
@@ -93,4 +99,31 @@ public class MoveAction : MonoBehaviour
     {
         return isMoving;
     }
+    public List<GridPos> GetActualActionValidGridPosList()
+    {
+        List<GridPos> list = new List<GridPos>();
+
+        GridPos gridPos;
+
+        gridPos = unit.GetGridPos();
+
+        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
+        {
+            for (int y = -maxMoveDistance; y <= maxMoveDistance; y++) {
+                GridPos offsetGridPos = new GridPos(x, y);
+
+                GridPos testGridPos = offsetGridPos + gridPos;
+
+                if (GridCreator.Instance.HasUnitOnGridPos(testGridPos) && !(gridPos==testGridPos) )
+                {
+                    list.Add(testGridPos);
+
+                    Debug.Log((testGridPos).ToString());
+                }
+
+            }
+        }
+        return list;
+
+    } 
 }
