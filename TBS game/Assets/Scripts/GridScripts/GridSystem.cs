@@ -25,9 +25,13 @@ public class GridSystem  {
             }
         }
     }
-    public Vector3 GridToWorldPos(int x, int z)
+    public Vector3 MiddleOfGridToWorldPos(int x, int z)
     {
-        return new Vector3(x,0,z) * cellSize;
+        return (new Vector3(x,0,z) * cellSize)+new Vector3(cellSize/2,0,cellSize/2);
+    }
+    public Vector3 StartOfGridToWorldPos(int x, int z)
+    {
+        return (new Vector3(x, 0, z) * cellSize);
     }
     public GridPos WorldToGrid(Vector3 vector)
     {
@@ -43,7 +47,7 @@ public class GridSystem  {
             for(int z=0; z<height; z++)
             {
                 Transform transform = GameObject.Instantiate(prefab,
-                                                             GridToWorldPos(x, z),
+                                                             MiddleOfGridToWorldPos(x, z),
                                                              Quaternion.identity);
 
                 //GridDebugObject == the object with tmpro

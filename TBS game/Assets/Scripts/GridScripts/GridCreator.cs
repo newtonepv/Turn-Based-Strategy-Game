@@ -6,7 +6,8 @@ public class GridCreator : MonoBehaviour
 {
     GridSystem gridSystem;
     [SerializeField] Transform prefabTransform;
-
+    [SerializeField] Vector2 gridZise;
+    [SerializeField] float gridCellZise;
     public static GridCreator Instance { get; private set; }
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class GridCreator : MonoBehaviour
         {
             Instance = this;
         }
-        gridSystem = new GridSystem(10, 10, 2f);
+        gridSystem = new GridSystem(Mathf.RoundToInt(gridZise.x), Mathf.RoundToInt(gridZise.y), gridCellZise);
         gridSystem.CreateDebugObjects(prefabTransform);
     }
     void Start()
@@ -56,4 +57,6 @@ public class GridCreator : MonoBehaviour
         gridObject.RemoveUnit(unit);
     }
     public GridPos WorldToGrid(Vector3 position) => gridSystem.WorldToGrid(position);
+
+    public Vector3 GridToWorld(GridPos gridPos) => gridSystem.MiddleOfGridToWorldPos(gridPos.x, gridPos.z);
 }

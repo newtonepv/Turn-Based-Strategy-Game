@@ -5,100 +5,58 @@ using UnityEngine;
 
 public class playerMovementScript : MonoBehaviour
 {
-    Vector3 destination;
-    bool isMoving;
-    Vector3 wantedForward;
-
-    [SerializeField] float rotateSpeed;
-    [SerializeField] float mooveSpeed;
-    [SerializeField] float maxDistanceFromDestination;
-
-    PlayerAnimatorScript playerAnimator;
+    MoveAction moveAction;
     private void Awake()
     {
-        playerAnimator = GetComponent<PlayerAnimatorScript>();
-        wantedForward = transform.forward;
-        destination = transform.position;
     }
     void Start()
     {
         GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
         GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
+        moveAction = GetComponent<MoveAction>();
+    }
+    public MoveAction GetMoveAction()
+    {
+        return moveAction;
     }
     void SetPosInGrid(GridPos gridPos)
     {
         GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
     }
+
     void ClearPosOnGrid(GridPos gridPos)
     {
         GridCreator.Instance.RemoveUnitAtGridPosition(this, gridPos);
     }
+    public void SetPosInGrid(Vector3 pos)
+    {
+        GridPos gridPos = GridCreator.Instance.WorldToGrid(pos);
+        GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
+    }
+
+    public void ClearPosInGrid(Vector3 pos)
+    {
+        GridPos gridPos = GridCreator.Instance.WorldToGrid(pos);
+        GridCreator.Instance.RemoveUnitAtGridPosition(this, gridPos);
+    }
     void Update()
     {
-        MoveOrNot();
-        RotateOrNot();
     }
-    private void RotateOrNot()
-    {
-        if ((wantedForward- transform.forward).magnitude > 0.1)
-        {
-            transform.forward = Vector3.Lerp(transform.forward, wantedForward, rotateSpeed * Time.deltaTime);
-        }
-    }
-
     public void SetDestination(Vector3 destination)
     {
-        this.destination = destination;
+        GridPos GridDestination = GridCreator.Instance.WorldToGrid(destination);
+        moveAction.SetDestination(GridCreator.Instance.GridToWorld(GridDestination));
     }
-    
-
     public void SetRotationTowards(Vector3 mousepos)
     {
-        wantedForward = (mousepos - transform.position).normalized;
+        moveAction.SetRotationTowards((mousepos - transform.position).normalized);
     }
+
     void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
     {
         ClearPosOnGrid(gridPos);
         SetPosInGrid(destinationGridPos);
-
-
     }
-    void MoveOrNot()
-    {
-        GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
-        ClearPosOnGrid(gridPos);
 
-
-        Vector3 distance = (destination - transform.position);
-
-
-        if (distance.magnitude > maxDistanceFromDestination)
-        {
-            SetMooving(true);
-            Vector3 direction = distance.normalized;
-            transform.position += mooveSpeed * Time.deltaTime * direction;
-        }
-        else
-        {
-            SetMooving(false);
-            transform.position = destination;
-        }
-
-        gridPos = GridCreator.Instance.WorldToGrid(transform.position);
-
-        SetPosInGrid(gridPos);
-    }
-    void SetMooving(bool isMoving)
-    {
-        this.isMoving = isMoving;
-        if (isMoving)
-        {
-            playerAnimator.StartMoovingAnimation();
-        }
-        else
-        {
-            playerAnimator.StopMoovingAnimation();
-        }
-
-    }
+    
 }
