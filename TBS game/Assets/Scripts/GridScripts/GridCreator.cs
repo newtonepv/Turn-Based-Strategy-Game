@@ -62,4 +62,7 @@ public class GridCreator : MonoBehaviour
 
     public bool GridPositionExist(GridPos gridPos) => gridSystem.GridPositionExist(gridPos.x, gridPos.z);
     public bool HasUnitOnGridPos(GridPos gridPos) => gridSystem.HasUnitOnGridPos(gridPos.x, gridPos.z);
+
+    public int GetWidth() => gridSystem.GetWidth();
+    public int GetHeigth() => gridSystem.GetHeigth();
 }

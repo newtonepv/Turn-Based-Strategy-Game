@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class Unit : MonoBehaviour
 {
     MoveAction moveAction;
+    SpinAction spinAction;
     private void Awake()
     {
     }
@@ -14,19 +15,24 @@ public class Unit : MonoBehaviour
     {
         GridPos gridPos = GridCreator.Instance.WorldToGrid(transform.position);
         moveAction = GetComponent<MoveAction>();
+        spinAction = GetComponent<SpinAction>();
     }
     public MoveAction GetMoveAction()
     {
         return moveAction;
     }
-
-
+    public bool IsMoveActionActive()
+    {
+        return moveAction.IsActive();
+    }
+    public bool IsSpinActionActive()
+    {
+        return spinAction.IsActive();
+    }
     public GridPos GetGridPos()
     {
         return GridCreator.Instance.WorldToGrid(transform.position);
     }
-
-
     void SetPosInGrid(GridPos gridPos)
     {
         GridCreator.Instance.AddUnitAtGridPosition(this, gridPos);
@@ -50,14 +56,15 @@ public class Unit : MonoBehaviour
     void Update()
     {
     }
-    public void SetDestination(Vector3 destination)
+    public void Move(Vector3 destination)
     {
-        GridPos GridDestination = GridCreator.Instance.WorldToGrid(destination);
-        moveAction.SetDestination(GridCreator.Instance.GridToWorld(GridDestination));
+        GridPos gridDestination = GridCreator.Instance.WorldToGrid(destination);
+        Vector3 limitedDestination = GridCreator.Instance.GridToWorld(gridDestination);
+        moveAction.Move(limitedDestination);
     }
-    public void SetRotationTowards(Vector3 mousepos)
+    public void Spin()
     {
-        moveAction.SetRotationTowards((mousepos - transform.position).normalized);
+        spinAction.SetSpinning(true);
     }
 
     /*void ChangeGridPos(GridPos gridPos, GridPos destinationGridPos)
@@ -66,5 +73,5 @@ public class Unit : MonoBehaviour
         SetPosInGrid(destinationGridPos);
     }*/
 
-    
+
 }

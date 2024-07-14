@@ -36,9 +36,13 @@ public class UnitActionControllerScript : MonoBehaviour
     }
     void HandleActions()
     {
+
+        HandleSpinUnit();
         if (Input.GetMouseButtonDown(0))
         {
+            
             HandleClickActions();
+
         }
     }
     void HandleClickActions()
@@ -55,6 +59,24 @@ public class UnitActionControllerScript : MonoBehaviour
 
     }
 
+    private void HandleSpinUnit()
+    {
+        
+        if (Input.GetMouseButtonDown(1) && !AnyActiveAction())
+        {
+            SpinUnit();
+        }
+    }
+
+    private void SpinUnit()
+    {
+        selectedUnit.Spin();
+    }
+
+    private bool AnyActiveAction()
+    {
+        return selectedUnit.IsSpinActionActive() || selectedUnit.IsMoveActionActive();
+    }
     private bool HandleUnitSelect()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,7 +102,10 @@ public class UnitActionControllerScript : MonoBehaviour
 
     private void HandleMooveUnit()
     {
-        MooveUnit(GetMousePosition());
+        if (!AnyActiveAction())
+        {
+            MooveUnit(GetMousePosition());
+        }
     }
 
     private Vector3 GetMousePosition()
@@ -99,7 +124,7 @@ public class UnitActionControllerScript : MonoBehaviour
     private void SelectUnit(Unit unit)
     {
         selectedUnit = unit;
-
+        
         OnUnitSelectedChange?.Invoke(this, EventArgs.Empty);
         
     }
@@ -109,10 +134,9 @@ public class UnitActionControllerScript : MonoBehaviour
     }
     private void MooveUnit(Vector3 destination)
     {
-        if (selectedUnit.transform.TryGetComponent<MoveAction>(out MoveAction mooveAction))
+        if (selectedUnit.TryGetComponent<MoveAction>(out MoveAction mooveAction))
         {
-            selectedUnit.SetDestination(destination);
-            selectedUnit.SetRotationTowards(destination);
+                selectedUnit.Move(destination);
         }
     }
 }

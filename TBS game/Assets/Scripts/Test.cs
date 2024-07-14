@@ -14,7 +14,6 @@ public class Test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            unit.GetMoveAction().GetActualActionValidGridPosList();
         }
     }
 }

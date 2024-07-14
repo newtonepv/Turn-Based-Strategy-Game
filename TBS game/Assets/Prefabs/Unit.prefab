@@ -878,6 +878,7 @@ GameObject:
   - component: {fileID: 2068110857397453409}
   - component: {fileID: 6973412949560906302}
   - component: {fileID: 7525746605489038963}
+  - component: {fileID: 2503315519615825537}
   m_Layer: 8
   m_Name: Unit
   m_TagString: Untagged
@@ -914,8 +915,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d44706454095b6409ac2232f0128d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 12
-  mooveSpeed: 2.59
+  rotateSpeed: 11
+  mooveSpeed: 2
   maxDistanceFromDestination: 0.15
   maxMoveDistance: 1
 --- !u!114 &2068110857397453409
@@ -930,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14884e6d04583b448b2823778dfa6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitName: 
 --- !u!114 &6973412949560906302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +965,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.44166377, y: 1.728702, z: 0.35648623}
   m_Center: {x: 0, y: 0.8484643, z: -0.012518808}
+--- !u!114 &2503315519615825537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258881948381263854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f4dcefea5dba842b6f9232b229c57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinSpeed: 360
 --- !u!1 &2544620274796023319
 GameObject:
   m_ObjectHideFlags: 0

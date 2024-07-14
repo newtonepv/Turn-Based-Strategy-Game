@@ -72,6 +72,15 @@ public class GridSystem  {
         return gridDebugObjects[x, z];
     }
 
+    public int GetWidth()
+    {
+        return width;
+    }
+    public int GetHeigth()
+    {
+        return height;
+    }
+
     public bool GridPositionExist(int x, int z)
     {
         return  x >= 0 && z >= 0
