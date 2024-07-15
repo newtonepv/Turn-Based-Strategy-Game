@@ -17,7 +17,6 @@ public class MoveAction : BaseAction
     PlayerAnimatorScript playerAnimator;
 
 
-    Action<bool> onMoveActionCompleteDelegate;
 
     protected override void Awake()
     {
@@ -60,7 +59,7 @@ public class MoveAction : BaseAction
             SetMooving(false);
             transform.position = destination;
             isActive = false;
-            onMoveActionCompleteDelegate(false);
+            onActionCompleteDelegate(false);
         }
     }
     private void HandleRotation()
@@ -78,7 +77,7 @@ public class MoveAction : BaseAction
     }
     public void Move(Vector3 destination, Action<bool> onMoveActionCompleteDelegate)
     {
-        this.onMoveActionCompleteDelegate= onMoveActionCompleteDelegate;
+        this.onActionCompleteDelegate= onMoveActionCompleteDelegate;
         isActive = true;
         SetDestination(destination);
         SetRotationTowards(destination);

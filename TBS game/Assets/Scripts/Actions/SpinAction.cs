@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,15 @@ public class SpinAction : BaseAction
 {
     [SerializeField] float spinSpeed;
 
-    public delegate void OnSpinActionCompleteDelegate(bool isBusy);
 
     float totalSpinAmmount;
 
-    OnSpinActionCompleteDelegate onSpinActionCompleteDelegate;
-    public void SetSpinning(bool isSpinning, OnSpinActionCompleteDelegate onSpinActionCompleteDelegate)
+    public void SetSpinning(bool isSpinning, Action<bool> onSpinActionCompleteDelegate)
     {
         totalSpinAmmount = 0;
 
         this.isActive = isSpinning;
-        this.onSpinActionCompleteDelegate = onSpinActionCompleteDelegate;
+        this.onActionCompleteDelegate = onSpinActionCompleteDelegate;
     }
 
     void Update()
@@ -37,7 +36,7 @@ public class SpinAction : BaseAction
         {
             Debug.Log("pepe");
             isActive=false;
-            onSpinActionCompleteDelegate(false);
+            onActionCompleteDelegate(false);
         }
 
     }
